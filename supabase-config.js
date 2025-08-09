@@ -1,24 +1,10 @@
-// Import the functions you need from the SDKs you need.
-// Yeh line hum ab use nahi kar rahe hain kyunki initialization main.js mein hoga,
-// lekin ise rakhe rehne se koi problem nahi hai.
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+// Yahan Supabase se copy ki hui keys daalein
+const SUPABASE_URL = 'https://fsyokvlhxfaqhmfnbhlz.supabase.co';       // Apna Supabase URL yahan paste karein
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzeW9rdmxoeGZhcWhtZm5iaGx6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjQ3NjcsImV4cCI6MjA3MDM0MDc2N30.edSIcgSdhj07Q5iX28JTZdMzBvMdm6EuHe1YMSx-Hqs'; // Apni Anon Key yahan paste karein
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// Supabase client ko create karna aur export karna
+// Neeche diye gaye CDN link se hum Supabase client library ko import kar rahe hain
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
 
-// Your web app's Firebase configuration
-// Maine iske aage "export" laga diya hai taaki main.js ise use kar sake.
-export const firebaseConfig = {
-  apiKey: "AIzaSyC6YEgAXn8tIxdFPldZN1ap5ATi3BDOGq4",
-  authDomain: "ai-technocrafts-app-store.firebaseapp.com",
-  projectId: "ai-technocrafts-app-store",
-  // Maine storageBucket URL ko theek kar diya hai.
-  storageBucket: "ai-technocrafts-app-store.appspot.com",
-  messagingSenderId: "497852129252",
-  appId: "1:497852129252:web:3ce7c231ff1a00b2f5f1f1"
-};
-
-// Initialize Firebase
-// Maine is line ko comment kar diya hai (disable kar diya hai)
-// kyunki ab hum Firebase ko main.js file ke andar initialize kar rahe hain.
-// const app = initializeApp(firebaseConfig);
+// Humein bas is 'supabase' object ki zaroorat padegi
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
