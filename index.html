@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ai Technocrafts App Store</title>
-    <!-- Google Fonts for a clean look -->
+    <title>Ai Technocrafts Store</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Link to our CSS file -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Header Section - UPDATED DESIGN -->
     <header>
         <div class="container">
-            <h1 class="logo">Ai Technocrafts App Store</h1>
+            <div class="header-top">
+                <h1 class="logo-text">Ai Technocrafts App Store</h1>
+            </div>
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="Search for apps...">
             </div>
@@ -26,33 +26,29 @@
     <!-- Main Content -->
     <main>
         <div class="container">
-            <!-- Featured Apps Section -->
             <section class="app-section">
                 <h2>Featured Apps</h2>
                 <div class="app-grid" id="featured-apps">
-                    <!-- App cards will be dynamically inserted here by JavaScript -->
-                    <!-- Loading Placeholder -->
-                    <p>Loading apps...</p> 
+                    <p class="loading-text">Loading apps...</p> 
                 </div>
             </section>
-
-            <!-- All Apps Section -->
             <section class="app-section">
                 <h2>All Apps</h2>
                 <div class="app-grid" id="all-apps">
-                    <!-- App cards will be dynamically inserted here by JavaScript -->
+                    <!-- Apps will be loaded here -->
                 </div>
             </section>
         </div>
     </main>
 
-        <!-- Footer -->
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2025 Ai Technocrafts. All Rights Reserved.</p> 
+            <p>&copy; 2024 Ai Technocrafts. All Rights Reserved.</p>
         </div>
     </footer>
-    <!-- Load the main script as a module. Yeh 'main.js' baki files ko import kar lega. -->
+
+    <!-- Load the main script as a module -->
     <script type="module" src="main.js"></script>
 
 </body>
