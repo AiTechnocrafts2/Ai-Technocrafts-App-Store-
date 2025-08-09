@@ -1,73 +1,60 @@
-// --- Step 1: Import necessary functions from Firebase and our config ---
+// Step 1: Import the 'supabase' client from our config file
+import { supabase } from './supabase-config.js';
 
-// Import the 'initializeApp' function from the Firebase app SDK
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-// Import Firestore functions from the Firestore SDK
-import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
-// Import our Firebase config from the local file
-import { firebaseConfig } from './firebase-config.js';
-
-
-// --- Step 2: Initialize Firebase and Firestore ---
-
-// Initialize Firebase with our config. This is the app instance.
-const app = initializeApp(firebaseConfig);
-// Get a reference to the Firestore database service
-const db = getFirestore(app);
-
-
-// --- Step 3: Wait for the DOM to be ready ---
+// Step 2: Wait for the DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- DOM Element References ---
     const featuredAppsGrid = document.getElementById('featured-apps');
     const allAppsGrid = document.getElementById('all-apps');
 
-        // --- Function to Create an App Card HTML ---
+    // --- Function to Create an App Card HTML ---
+    // YEH FUNCTION BILKUL WAHI HAI, KOI CHANGE NAHI
     function createAppCard(app) {
-        // Hum check karenge ki category hai ya nahi. Agar nahi hai, to khaali chhod denge.
-        const categoryHTML = app.data.category ? `<p>${app.data.category}</p>` : '';
-
+        // Supabase mein data seedha milta hai, 'data' property ke andar nahi
+        const categoryHTML = app.category ? `<p>${app.category}</p>` : '';
         return `
             <a href="app.html?id=${app.id}" class="app-card">
                 <div class="app-card-content">
-                    <img src="${app.data.iconUrl}" alt="${app.data.name} Icon" class="app-card-icon">
+                    <img src="${app.iconUrl}" alt="${app.name} Icon" class="app-card-icon">
                     <div class="app-card-info">
-                        <h3>${app.data.name}</h3>
-                        ${categoryHTML}  
+                        <h3>${app.name}</h3>
+                        ${categoryHTML}
                     </div>
                 </div>
             </a>
         `;
     }
 
-    // --- Function to Fetch and Display Apps (Updated for Modular SDK) ---
+    // --- Function to Fetch and Display Apps (Updated for Supabase) ---
     async function fetchAndDisplayApps() {
         try {
-            // Create a query to get apps from the "apps" collection, ordered by creation time
-            const appsQuery = query(collection(db, "apps"), orderBy("createdAt", "desc"));
-            // Execute the query
-            const snapshot = await getDocs(appsQuery);
-            
+            // Supabase se data fetch karne ka naya tareeka
+            const { data: apps, error } = await supabase
+                .from('apps') // Table ka naam
+                .select('*') // Saare columns select karo
+                .order('created_at', { ascending: false }); // Naye apps pehle
+
+            if (error) {
+                // Agar Supabase se koi error aaye
+                throw error;
+            }
+
             // Clear the loading message
             featuredAppsGrid.innerHTML = '';
             allAppsGrid.innerHTML = '';
 
-            if (snapshot.empty) {
+            if (!apps || apps.length === 0) {
                 allAppsGrid.innerHTML = '<p>No apps found.</p>';
                 return;
             }
 
-            // Loop through each app document
-            snapshot.forEach(doc => {
-                const app = {
-                    id: doc.id,
-                    data: doc.data()
-                };
-
+            // Loop through each app
+            apps.forEach(app => {
                 const cardHTML = createAppCard(app);
 
-                if (app.data.isFeatured) {
+                // Check if the app is featured
+                if (app.isFeatured) {
                     featuredAppsGrid.innerHTML += cardHTML;
                 }
                 allAppsGrid.innerHTML += cardHTML;
@@ -75,12 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error("Error fetching apps: ", error);
-            // This will show the error in the browser console, which is very helpful
-            allAppsGrid.innerHTML = `<p>Error: ${error.message}. Check the console for more details.</p>`;
+            allAppsGrid.innerHTML = `<p>Could not load apps: ${error.message}</p>`;
         }
     }
 
     // --- Initial Call ---
     fetchAndDisplayApps();
 });
-
