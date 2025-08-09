@@ -9,9 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const allAppsGrid = document.getElementById('all-apps');
 
     // --- Function to Create an App Card HTML ---
-    // YEH FUNCTION BILKUL WAHI HAI, KOI CHANGE NAHI
     function createAppCard(app) {
-        // Supabase mein data seedha milta hai, 'data' property ke andar nahi
         const categoryHTML = app.category ? `<p>${app.category}</p>` : '';
         return `
             <a href="app.html?id=${app.id}" class="app-card">
@@ -26,21 +24,22 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // --- Function to Fetch and Display Apps (Updated for Supabase) ---
+    // --- Function to Fetch and Display Apps ---
     async function fetchAndDisplayApps() {
         try {
-            // Supabase se data fetch karne ka naya tareeka
             const { data: apps, error } = await supabase
-                .from('apps') // Table ka naam
-                .select('*') // Saare columns select karo
-                .order('created_at', { ascending: false }); // Naye apps pehle
+                .from('apps')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            // Debugging messages
+            console.log("Data from Supabase:", apps);
+            console.log("Error from Supabase:", error);
 
             if (error) {
-                // Agar Supabase se koi error aaye
                 throw error;
             }
 
-            // Clear the loading message
             featuredAppsGrid.innerHTML = '';
             allAppsGrid.innerHTML = '';
 
@@ -49,11 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Loop through each app
             apps.forEach(app => {
                 const cardHTML = createAppCard(app);
-
-                // Check if the app is featured
                 if (app.isFeatured) {
                     featuredAppsGrid.innerHTML += cardHTML;
                 }
