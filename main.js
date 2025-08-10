@@ -1,5 +1,6 @@
-// Step 1: Import the 'supabase' client from our config file
-import { supabase } from './supabase-config.js';
+// ***** YAHAN CHANGE HUA HAI *****
+// Step 1: 'supabase' ki jagah 'sb' ko import karein
+import { sb } from './supabase-config.js';
 
 // Step 2: Wait for the DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Function to Create an App Card HTML ---
     function createAppCard(app) {
-        const categoryHTML = app.category ? `<p>${app.category}</p>` : '';
+        const categoryHTML = app.category ? `<p class="app-card-category">${app.category}</p>` : '';
         return `
             <a href="app.html?id=${app.id}" class="app-card">
                 <div class="app-card-content">
@@ -27,14 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Function to Fetch and Display Apps ---
     async function fetchAndDisplayApps() {
         try {
-            const { data: apps, error } = await supabase
+            // ***** YAHAN CHANGE HUA HAI *****
+            // 'supabase' ki jagah 'sb' use karein
+            const { data: apps, error } = await sb
                 .from('apps')
                 .select('*')
                 .order('created_at', { ascending: false });
-
-            // Debugging messages
-            console.log("Data from Supabase:", apps);
-            console.log("Error from Supabase:", error);
 
             if (error) {
                 throw error;
