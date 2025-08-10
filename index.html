@@ -11,19 +11,19 @@
 </head>
 <body>
 
-<!-- Header Section - Logo ke saath -->
-<header>
-    <div class="container">
-        <div class="header-top">
-            <!-- Yahan apne logo ka path daalein -->
-            <img src="logo.png" alt="Logo" class="logo-img"> 
-            <h1 class="logo-text">Ai Technocrafts App Store</h1>
+    <!-- Header Section - Logo ke saath -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <!-- ***** YAHAN GADBAD THEEK KI GAYI HAI ***** -->
+                <img src="logo.png" alt="Logo" class="logo-img">
+                <h1 class="logo-text">Ai Technocrafts App Store</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for apps...">
+            </div>
         </div>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search for apps...">
-        </div>
-    </div>
-</header>
+    </header>
 
     <!-- Main Content -->
     <main>
@@ -31,7 +31,7 @@
             <section class="app-section">
                 <h2>Featured Apps</h2>
                 <div class="app-grid" id="featured-apps">
-                    <p class="loading-text">Loading apps...</p> 
+                    <p class="loading-text">Loading apps...</p>
                 </div>
             </section>
             <section class="app-section">
@@ -50,14 +50,11 @@
         </div>
     </footer>
 
-    <!-- ***** YAHAN CHANGE HUA HAI ***** -->
-    <!-- 1. Supabase Library ko yahan load karein -->
+    <!-- ***** SCRIPT SECTION THEEK KIYA GAYA HAI ***** -->
+    <!-- 1. Supabase Library ko load karein -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- 2. Ab apne module ko load karein -->
+    <!-- 2. Sirf main.js ko load karein -->
     <script type="module" src="main.js"></script>
-                
-    <script type="module" src="app-details.js"></script>
-                
+
 </body>
 </html>
